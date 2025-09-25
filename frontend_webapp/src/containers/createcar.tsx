@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../layouts/createcar.css";
 
 type ApiVehicle = {
   idvehiculo: number;
@@ -39,7 +40,6 @@ const CreatedCar: React.FC<CreatedCarProps> = ({ onCreated }) => {
     if (form.precio.trim() === "" || Number.isNaN(Number(form.precio))) {
       return "El precio debe ser un número.";
     }
-    // Kilometraje llega como string en tu API, pero validamos que parezca numérico
     if (form.kilometraje.trim() === "" || Number.isNaN(Number(form.kilometraje))) {
       return "El kilometraje debe ser un número.";
     }
@@ -74,7 +74,9 @@ const CreatedCar: React.FC<CreatedCarProps> = ({ onCreated }) => {
 
       if (!res.ok) {
         const t = await res.text().catch(() => "");
-        throw new Error(`No se pudo crear el vehículo (HTTP ${res.status}) ${t ? `- ${t}` : ""}`);
+        throw new Error(
+          `No se pudo crear el vehículo (HTTP ${res.status}) ${t ? `- ${t}` : ""}`
+        );
       }
 
       let created: ApiVehicle | null = null;
@@ -89,7 +91,15 @@ const CreatedCar: React.FC<CreatedCarProps> = ({ onCreated }) => {
       setForm({ marca: "", kilometraje: "", precio: "" });
       onCreated?.(created);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error desconocido al crear el vehículo.");
+      if (err instanceof TypeError && err.message.includes("Failed to fetch")) {
+        setError("No se pudo conectar con el servidor. Verifique que el backend esté en ejecución.");
+      } else {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Error desconocido al crear el vehículo."
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -105,7 +115,11 @@ const CreatedCar: React.FC<CreatedCarProps> = ({ onCreated }) => {
           {error && <p className="error-msg">{error}</p>}
         </div>
 
-        <form onSubmit={handleSubmit} className="vehicle-edit-form" style={{ maxWidth: 560 }}>
+        <form
+          onSubmit={handleSubmit}
+          className="vehicle-edit-form"
+          style={{ maxWidth: 560 }}
+        >
           <div className="form-row">
             <label htmlFor="marca">Nombre (Marca) *</label>
             <input

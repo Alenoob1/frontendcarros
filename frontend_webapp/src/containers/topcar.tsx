@@ -127,7 +127,7 @@ const TopCarContainer: React.FC = () => {
   };
 
   const putVehicle = async (id: number, data: { marca: string; kilometraje: string; precio: number }) => {
-    const url = `https://localhost:44370/api/Vehiculo/${id}`; // ojo a la V mayúscula
+    const url = `https://localhost:44370/api/Vehiculo/${id}`; 
     const body = JSON.stringify({
       idvehiculo: id,
       marca: data.marca,

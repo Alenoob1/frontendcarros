@@ -5,7 +5,8 @@ import SearchContainer from '../containers/serachs';
 import TopCarContainer from '../containers/topcar';
 import ServicesContainer from '../containers/services';
 import FooterContainer from '../containers/flooter';
-import  CreatedCar from '../containers/createcar';
+import CreatedCar from '../containers/createcar';
+import AnalizarImg from '../containers/analizarimg';
 
 interface HomepageProps {
   onLogout: () => void;
@@ -13,29 +14,36 @@ interface HomepageProps {
 
 const Homepage: React.FC<HomepageProps> = ({ onLogout }) => {
   return (
-    //se modifico la estructura de los componenetes, para optimizar el homepage
     <div className="homepage">
-      {/* Header Container */}
+      {/* Header con el menú */}
       <HeaderContainer onLogout={onLogout} />
 
-      {/* Initial View Container */}
-      <InitialView />
+      {/* Secciones con IDs para react-scroll */}
+      <section id="inicio">
+        <InitialView />
+      </section>
 
-      {/* Search Container */}
-      <SearchContainer />
+      <section id="crear-auto">
+        <CreatedCar />
+      </section>
 
-      {/* Top Car Container */}
-      <TopCarContainer />
+      <section id="vehiculos">
+        <SearchContainer />
+        <TopCarContainer />
+      </section>
 
-       {/* crear Container */}
-      <CreatedCar />
+      <section id="analizar">
+        <h2 style={{ textAlign: 'center', margin: '2rem 0' }}>Analizar Imagen</h2>
+        <AnalizarImg />
+      </section>
 
-      {/* Services Container */}
-      <ServicesContainer />
+      <section id="servicios">
+        <ServicesContainer />
+      </section>
 
-      {/* Footer Container */}
-      <FooterContainer />
-
+      <section id="contacto">
+        <FooterContainer />
+      </section>
     </div>
   );
 };

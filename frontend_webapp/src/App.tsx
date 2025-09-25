@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './components/homepage';
 import './App.css';
 
@@ -24,12 +25,14 @@ function App() {
       </div>
     );
   }
-
   return (
     <div className="App">
-      <Homepage />
+      < Homepage onLogout={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
     </div>
-  );
+  ); 
 }
+
 
 export default App;
