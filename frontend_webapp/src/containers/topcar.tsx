@@ -13,7 +13,6 @@ interface Vehicle {
   marca: string;
   kilometraje?: string;
   precio: number;
-  // opcionales si regresan en el futuro
   modelo?: string;
   año?: string;
   estado?: string;
@@ -34,7 +33,6 @@ const TopCarContainer: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [expandedVehicles, setExpandedVehicles] = useState<Set<number>>(new Set());
 
-  // edición
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<{ marca: string; kilometraje: string; precio: string }>({
     marca: '',
@@ -43,18 +41,17 @@ const TopCarContainer: React.FC = () => {
   });
   const [saving, setSaving] = useState(false);
 
-  // mensajes generales
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saveOk, setSaveOk] = useState<string | null>(null);
 
-  // eliminación
+
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [deleteOk, setDeleteOk] = useState<string | null>(null);
 
   useEffect(() => {
     fetchVehicles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const normalizeResponse = (data: unknown): Vehicle[] => {
@@ -103,7 +100,6 @@ const TopCarContainer: React.FC = () => {
     });
   };
 
-  // ----- PUT (editar) -----
   const startEdit = (v: Vehicle) => {
     setEditingId(v.id);
     setEditForm({
@@ -172,9 +168,7 @@ const TopCarContainer: React.FC = () => {
       setSaving(false);
     }
   };
-  // ----- FIN PUT -----
 
-  // ----- DELETE (eliminar) -----
   const deleteVehicle = async (id: number) => {
     if (!window.confirm('¿Desea eliminar este vehículo? Esta acción no se puede deshacer.')) return;
 
@@ -182,14 +176,13 @@ const TopCarContainer: React.FC = () => {
     setDeleteOk(null);
     setDeletingId(id);
     try {
-      const url = `https://localhost:44370/api/Vehiculo/${id}`; // V mayúscula
+      const url = `https://localhost:44370/api/Vehiculo/${id}`;
       const res = await fetch(url, { method: 'DELETE' });
       if (!res.ok) {
         const t = await res.text().catch(() => '');
         throw new Error(`Fallo al eliminar (HTTP ${res.status}) ${t ? `- ${t}` : ''}`);
       }
 
-      // Actualización optimista
       setVehicles((prev) => prev.filter((v) => v.id !== id));
       setExpandedVehicles((prev) => {
         const next = new Set(prev);
@@ -205,7 +198,7 @@ const TopCarContainer: React.FC = () => {
       setDeletingId(null);
     }
   };
-  // ----- FIN DELETE -----
+
 
   const vehiclesToShow = showAllVehicles ? vehicles : vehicles.slice(0, 6);
 

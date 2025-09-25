@@ -6,15 +6,14 @@ import './App.css';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simular verificación de autenticación (ejemplo)
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // espera 1.5 segundos
+    }, 1500); 
     return () => clearTimeout(timer);
   }, []);
 
-  // Mostrar loading mientras se verifica la autenticación
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">

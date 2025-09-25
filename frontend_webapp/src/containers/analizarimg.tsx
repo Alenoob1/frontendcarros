@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-// import ReactJson from "react-json-view"; // Opcional
-
 const AnalizarImg: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [resultado, setResultado] = useState<any>(null); // ahora es any
+  const [resultado, setResultado] = useState<any>(null); 
   const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,13 +35,12 @@ const AnalizarImg: React.FC = () => {
         throw new Error(data.detalle || `Error HTTP ${response.status}`);
       }
 
-      // Parsear si viene como string
       let parsedResult = data.resultado;
       if (typeof parsedResult === "string") {
         try {
           parsedResult = JSON.parse(parsedResult);
         } catch {
-          // si no es JSON válido, dejar como string
+    
         }
       }
 
@@ -72,9 +69,6 @@ const AnalizarImg: React.FC = () => {
           <pre style={{ background: "#e8f0fe", padding: "1rem", borderRadius: "5px", overflowX: "auto", whiteSpace: "pre-wrap" }}>
             {JSON.stringify(resultado, null, 2)}
           </pre>
-
-          {/* Opcional: JSON interactivo y coloreado */}
-          {/* <ReactJson src={resultado} collapsed={1} enableClipboard={false} /> */}
         </div>
       )}
     </div>

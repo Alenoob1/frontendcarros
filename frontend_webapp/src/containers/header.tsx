@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-scroll'; // 👈 importamos react-scroll
+import { Link } from 'react-scroll'; 
 import '../layouts/header.css';
 
 interface HeaderContainerProps {
@@ -21,12 +21,9 @@ const HeaderContainer: React.FC<HeaderContainerProps> = ({ onLogout }) => {
   return (
     <header className="header">
       <div className="header-container">
-        {/* Logo */}
         <div className="logo">
           <h1>CarOnline</h1>
         </div>
-
-        {/* Navegación con react-scroll */}
         <nav className="nav">
           <Link 
             to="inicio" 
@@ -66,14 +63,11 @@ const HeaderContainer: React.FC<HeaderContainerProps> = ({ onLogout }) => {
           </Link>
         </nav>
 
-        {/* Botones de acciones */}
         <div className="header-actions">
           <button className="btn-theme-toggle" onClick={toggleTheme}>
             {dark ? '☀️ Claro' : '🌙 Oscuro'}
           </button>
-          {/* <button className="btn-logout" onClick={handleLogout}>
-            🚪 Cerrar Sesión
-          </button> */}
+          
         </div>
       </div>
     </header>

@@ -4,8 +4,8 @@ import "../layouts/createcar.css";
 type ApiVehicle = {
   idvehiculo: number;
   marca: string;
-  kilometraje: string; // la API actual lo maneja como string
-  precio: number;      // number
+  kilometraje: string; 
+  precio: number;      
 };
 
 type CreatePayload = {
@@ -15,7 +15,6 @@ type CreatePayload = {
 };
 
 type CreatedCarProps = {
-  /** Se dispara al crear correctamente; útil para refrescar listados en el padre */
   onCreated?: (vehicle: ApiVehicle | null) => void;
 };
 
@@ -83,7 +82,7 @@ const CreatedCar: React.FC<CreatedCarProps> = ({ onCreated }) => {
       try {
         created = (await res.json()) as ApiVehicle;
       } catch {
-        // si la API no retorna JSON, seguimos igual
+
         created = null;
       }
 
