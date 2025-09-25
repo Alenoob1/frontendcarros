@@ -27,7 +27,7 @@ const AnalizarImg: React.FC = () => {
       formData.append("file", file);
 
       const response = await fetch(
-        "https://localhost:44370/api/UploadImage/upload-image",
+        "https://localhost:44370/api/Vehiculo/upload-image",
         { method: "POST", body: formData }
       );
 
